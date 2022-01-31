@@ -1,3 +1,4 @@
+#include "class1.hpp"
 #include <array>
 #include <chrono>
 #include <iostream>
@@ -6,7 +7,11 @@
 
 auto main() -> int
 {
-    auto vec = std::vector<int>{};
-    double arr[3] = {};
+    auto vec = std::vector<int>(10);
+    for (int i = 0; i < vec.size(); i++)
+    {
+        std::cout << vec[i] << std::endl;
+    }
+    int i;
     return 0;
 }
