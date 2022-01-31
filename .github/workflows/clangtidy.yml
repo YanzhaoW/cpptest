@@ -1,0 +1,42 @@
+name: static analysis
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions: write-all
+
+jobs:
+  clang-tidy:
+    runs-on: ubuntu-latest
+    container: 
+      image: silkeh/clang:15-buster
+      options: --user root
+      # image: yanzhaowang/fairroot:v18.8.0
+    # container: 
+    #   image: silkeh/clang:15-buster
+    #   # image: yanzhaowang/fairroot:v18.8.0
+    steps:
+    - run: apt-get update -y && apt-get install -y git
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: clang-tidy
+      run: |
+        git config --global --add safe.directory $GITHUB_WORKSPACE
+        git diff -U0 HEAD^
+        cmake . -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+        mkdir -p clang-tidy-result
+        git diff -U0 HEAD^ | clang-tidy-diff-15.py -p1 -path build -export-fixes clang-tidy-result/fixes.yml |\
+        sed 's/\(^.*\):\([0-9]*\):\([0-9]*\): warning:/::error file=\1,line=\2,col=\3::/'
+
+
+    # - name: publish review
+    #   uses: platisd/clang-tidy-pr-comments@master
+    #   with:
+    #     github_token: ${{ secrets.GITHUB_TOKEN }}
+    #     repo_path_prefix: '/__w'
+    #     clang_tidy_fixes: clang-tidy-result/fixes.yml
+    #     request_changes: true

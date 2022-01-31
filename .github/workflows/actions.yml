@@ -1,0 +1,33 @@
+name: actions
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  clang_tidy_check:
+    runs-on: ubuntu-latest
+    container: 
+      image: silkeh/clang:15-buster
+    steps: 
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      # - name: create build folder
+      #   run: |
+      #     mkdir ${GITHUB_WORKSPACE}/build
+      #     chmod -R 755 ${GITHUB_WORKSPACE}/build
+      - uses: actions/cache@v3
+        name: 'build cache'
+        id: cache-trail-2
+        with:
+          path: build
+          key: ${{ runner.os }}-trail-2
+      - name: build and run
+        run: |
+          cd ${GITHUB_WORKSPACE}
+          mkdir -p build && cd build
+          cmake .. 
+          make
+          ./trail
