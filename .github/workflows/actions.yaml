@@ -12,5 +12,7 @@ jobs:
     runs-on: self-hosted
     steps: 
       - ueses: actions/checkout@v3
-      - run: cd ${{GITHUB_WORKSPACE}} && mkdir build && cd build
-      - run: ./trail
+      - name: build
+        run: | 
+            cd ${{GITHUB_WORKSPACE}} && mkdir build && cd build
+            ./trail
