@@ -17,7 +17,7 @@ jobs:
       - name: ls
         run: |
           echo "${{github.workspace}}"
-          ls ${{github.workspace}}
+          # ls ${{github.workspace}}
           echo "${GITHUB_WORKSPACE}"
           ls ${GITHUB_WORKSPACE}
       - name: build&run
