@@ -8,7 +8,7 @@ on:
   #   - opened
 
 jobs:
-  clang-tidy check:
+  clang_tidy_check:
     runs-on: self-hosted
     steps: 
       - uses: actions/checkout@v3
