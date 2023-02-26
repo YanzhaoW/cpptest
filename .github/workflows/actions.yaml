@@ -10,7 +10,17 @@ on:
 jobs:
   clang_tidy_check:
     runs-on: self-hosted
+    container: 
+      image: silkeh/clang:15-buster
     steps: 
       - uses: actions/checkout@v3
+      - name: ls
+        run: ls ./ 
       - name: build&run
-        run: cd ${{github.workspace}} && mkdir build && cd build && cmake .. && make && ./trail
+        run: |
+          cd ${{github.workspace}}
+          mkdir build
+          cd build
+          cmake .. 
+          make
+          ./trail
