@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - master
-  pull-request:
-    - opened
+  # pull-request:
+  #   - opened
 
 jobs:
   clang-tidy check:
