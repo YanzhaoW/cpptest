@@ -16,9 +16,9 @@ jobs:
       - uses: actions/checkout@v3
       - name: ls
         run: |
-          echo ${{github.workspace}}
+          echo "${{github.workspace}}"
           ls ${{github.workspace}}
-          echo ${GITHUB_WORKSPACE}
+          echo "${GITHUB_WORKSPACE}"
           ls ${GITHUB_WORKSPACE}
       - name: build&run
         run: |
