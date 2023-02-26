@@ -2,7 +2,8 @@ name: actions
 run-name: this is run name
 on:
   push:
-    branches: [master]
+    branches:
+      - master
   pull-request:
     - opened
 
