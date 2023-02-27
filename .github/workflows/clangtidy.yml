@@ -8,21 +8,17 @@ on:
 jobs:
   clang-tidy:
     runs-on: ubuntu-latest
-    container: 
-      image: silkeh/clang:15-buster
-      # image: yanzhaowang/fairroot:v18.8.0
+    # container: 
+    #   image: silkeh/clang:15-buster
+    #   # image: yanzhaowang/fairroot:v18.8.0
     steps: 
-      - run: apt-get update -y && apt-get install -y git
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Code formatting
+      - name: Install clang-tidy
         run: |
-          git config --global --add safe.directory $GITHUB_WORKSPACE
-          git branch
-          ls -a
-          # git diff -U0 master | clang-tidy-diff-15.py -p1 -path build -export-fixes clang-tidy-result/fixes.yml
-        shell: bash
+          sudo apt-get update
+          sudo apt-get install -y clang-tidy
       - name: Prepare compile_commands.json
         run: |
           cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
@@ -34,6 +30,7 @@ jobs:
           git config --global --add safe.directory $GITHUB_WORKSPACE
           git branch
           ls -a
+          git diff -U0 master | clang-tidy-diff-15.py -p1 -path build -export-fixes clang-tidy-result/fixes.yml
         shell: bash
       - name: Run clang-tidy-pr-comments action
         uses: platisd/clang-tidy-pr-comments@master
