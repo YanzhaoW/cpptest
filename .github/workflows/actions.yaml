@@ -13,20 +13,20 @@ jobs:
       options: --user root
     steps: 
       - uses: actions/checkout@v3
-      - name: create build folder
-        run: |
-          mkdir ${GITHUB_WORKSPACE}/build
-          chmod -R 755 ${GITHUB_WORKSPACE}/build
+      # - name: create build folder
+      #   run: |
+      #     mkdir ${GITHUB_WORKSPACE}/build
+      #     chmod -R 755 ${GITHUB_WORKSPACE}/build
       - uses: actions/cache@v3
         name: 'build cache'
-        id: cache-trail
+        id: cache-trail-1
         with:
           path: build
-          key: ${{ runner.os }}-trail
+          key: ${{ runner.os }}-trail-1
       - name: build and run
         run: |
           cd ${GITHUB_WORKSPACE}
-          cd build
+          mkdir build && cd build
           cmake .. 
           make
           ./trail
