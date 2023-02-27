@@ -22,7 +22,7 @@ jobs:
           mkdir clang-tidy-result
       - name: Analyze
         run: |
-          apt-get install git
+          apt-get -y build-essential install git
           git diff -U0 master | clang-tidy-diff-15.py -p1 -path build -export-fixes clang-tidy-result/fixes.yml
         shell: bash
       - name: Run clang-tidy-pr-comments action
