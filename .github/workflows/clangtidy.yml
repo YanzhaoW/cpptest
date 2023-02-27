@@ -20,6 +20,7 @@ jobs:
           mkdir clang-tidy-result
       - name: Analyze
         run: |
+          git diff master
           git diff -U0 master | clang-tidy-diff-15.py -p1 -path build -export-fixes clang-tidy-result/fixes.yml
       - name: Run clang-tidy-pr-comments action
         uses: platisd/clang-tidy-pr-comments@master
