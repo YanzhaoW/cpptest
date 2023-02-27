@@ -13,24 +13,21 @@ jobs:
       image: silkeh/clang:15-buster
     steps: 
       - uses: actions/checkout@v3
-      # - name: create build folder
-      #   run: |
-      #     mkdir ${GITHUB_WORKSPACE}/build
-      #     chmod -R 755 ${GITHUB_WORKSPACE}/build
-      - name: deps
-        run: apt-get install ccache
+      - name: create build folder
+        run: |
+          mkdir ${GITHUB_WORKSPACE}/build
+          chmod -R 755 ${GITHUB_WORKSPACE}/build
       - uses: actions/cache@v3
         name: 'build cache'
         id: cache-trail
         with:
-          path: .ccache
+          path: ${GITHUB_WORKSPACE}/build/
           key: ${{ runner.os }}-trail
 #
       - name: build&run
         run: |
           cd ${GITHUB_WORKSPACE}
           cd build
-          cmake .. -D CMAKE_C_COMPILER_LAUNCHER=ccache\
-            -D CMAKE_CXX_COMPILER_LAUNCHER=ccache
+          cmake .. 
           make
           ./trail
