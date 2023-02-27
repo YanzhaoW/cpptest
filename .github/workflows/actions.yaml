@@ -12,6 +12,8 @@ jobs:
       image: silkeh/clang:15-buster
     steps: 
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       # - name: create build folder
       #   run: |
       #     mkdir ${GITHUB_WORKSPACE}/build
