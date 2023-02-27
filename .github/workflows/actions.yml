@@ -1,9 +1,9 @@
 name: actions
 on:
   push:
-    branches:
-  workflow_dispatch:
+    branches: [master]
   pull_request:
+  workflow_dispatch:
 
 jobs:
   clang_tidy_check:
