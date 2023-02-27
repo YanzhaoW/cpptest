@@ -12,6 +12,8 @@ jobs:
       image: silkeh/clang:15-buster
     steps: 
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Prepare compile_commands.json
         run: |
           cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
