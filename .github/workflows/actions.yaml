@@ -1,5 +1,4 @@
 name: actions
-run-name: this is run name
 on:
   push:
     branches:
@@ -22,10 +21,9 @@ jobs:
         name: 'build cache'
         id: cache-trail
         with:
-          path: ${GITHUB_WORKSPACE}/build/
+          path: build
           key: ${{ runner.os }}-trail
-#
-      - name: build&run
+      - name: build and run
         run: |
           cd ${GITHUB_WORKSPACE}
           cd build
