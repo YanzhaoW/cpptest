@@ -14,7 +14,9 @@ jobs:
     steps: 
       - uses: actions/checkout@v3
       - name: create build folder
-        run: mkdir ${GITHUB_WORKSPACE}/build
+        run: |
+          mkdir ${GITHUB_WORKSPACE}/build
+          chmod -R 755 ${GITHUB_WORKSPACE}/build
       - uses: actions/cache@v3
         name: 'build cache'
         id: cache-trail
