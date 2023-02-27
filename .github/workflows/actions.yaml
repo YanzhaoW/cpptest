@@ -17,21 +17,20 @@ jobs:
       #   run: |
       #     mkdir ${GITHUB_WORKSPACE}/build
       #     chmod -R 755 ${GITHUB_WORKSPACE}/build
-      - name: ccache
-        uses: hendrikmuhs/ccache-action@v1.1
+      - name: deps
+        run: apt-get install ccache
+      - uses: actions/cache@v3
+        name: 'build cache'
+        id: cache-trail
         with:
+          path: .ccache
           key: ${{ runner.os }}-trail
-      # - uses: actions/cache@v3
-      #   name: 'build cache'
-      #   id: cache-trail
-      #   with:
-      #     path: $GITHUB_WORKSPACE/build
-      #     key: ${{ runner.os }}-trail
 #
       - name: build&run
         run: |
           cd ${GITHUB_WORKSPACE}
           cd build
-          cmake .. 
+          cmake .. -D CMAKE_C_COMPILER_LAUNCHER=ccache\
+            -D CMAKE_CXX_COMPILER_LAUNCHER=ccache
           make
           ./trail
