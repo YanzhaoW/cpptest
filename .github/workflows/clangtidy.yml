@@ -11,6 +11,9 @@ jobs:
     container: 
       image: silkeh/clang:15-buster
     steps: 
+      - run: |
+          apt-get update -y
+          apt-get install -y git
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
@@ -21,9 +24,7 @@ jobs:
         run: |
           mkdir clang-tidy-result
       - name: Analyze
-        run: |
-          apt-get update -y
-          apt-get install -y git
+        run: 
           git diff -U0 master | clang-tidy-diff-15.py -p1 -path build -export-fixes clang-tidy-result/fixes.yml
         shell: bash
       - name: Run clang-tidy-pr-comments action
