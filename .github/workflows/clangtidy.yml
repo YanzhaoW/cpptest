@@ -12,7 +12,7 @@ jobs:
     #   image: silkeh/clang:15-buster
     #   # image: yanzhaowang/fairroot:v18.8.0
     steps: 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Install clang-tidy
@@ -27,9 +27,6 @@ jobs:
           mkdir clang-tidy-result
       - name: Analyze
         run: |
-          git config --global --add safe.directory $GITHUB_WORKSPACE
-          git branch
-          ls -a
           git diff -U0 master | clang-tidy-diff-15.py -p1 -path build -export-fixes clang-tidy-result/fixes.yml
         shell: bash
       - name: Run clang-tidy-pr-comments action
