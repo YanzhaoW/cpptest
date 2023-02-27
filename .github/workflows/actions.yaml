@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     container: 
       image: silkeh/clang:15-buster
+      options: --user root
     steps: 
       - uses: actions/checkout@v3
       - name: create build folder
