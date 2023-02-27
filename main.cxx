@@ -7,6 +7,6 @@
 auto main() -> int
 {
     auto vec = std::vector<int>{};
-    int arr[3] = {};
+    double arr[3] = {};
     return 0;
 }
