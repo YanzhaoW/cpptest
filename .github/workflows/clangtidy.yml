@@ -17,7 +17,9 @@ jobs:
       - name: Code formatting
         run: |
           git config --global --add safe.directory $GITHUB_WORKSPACE
+          git branch
           ls -a
+          git diff -U0 master | clang-tidy-diff-15.py -p1 -path build -export-fixes clang-tidy-result/fixes.yml
         shell: bash
       - name: Prepare compile_commands.json
         run: |
@@ -29,7 +31,7 @@ jobs:
         run: |
           git config --global --add safe.directory $GITHUB_WORKSPACE
           git branch
-          git diff -U0 master | clang-tidy-diff-15.py -p1 -path build -export-fixes clang-tidy-result/fixes.yml
+          ls -a
         shell: bash
       - name: Run clang-tidy-pr-comments action
         uses: platisd/clang-tidy-pr-comments@master
