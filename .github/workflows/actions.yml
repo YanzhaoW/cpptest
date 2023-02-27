@@ -27,7 +27,7 @@ jobs:
       - name: build and run
         run: |
           cd ${GITHUB_WORKSPACE}
-          mkdir build && cd build
+          mkdir -p build && cd build
           cmake .. 
           make
           ./trail
