@@ -26,6 +26,7 @@ jobs:
           key: ${{ runner.os }}-trail-2
       - name: build and run
         run: |
+          ls /usr/bin/gi*
           /usr/bin/git status
           cd ${GITHUB_WORKSPACE}
           mkdir -p build && cd build
