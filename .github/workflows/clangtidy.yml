@@ -9,8 +9,10 @@ jobs:
   clang-tidy:
     runs-on: ubuntu-latest
     container: 
-      image: yanzhaowang/fairroot:v18.8.0
+      # image: yanzhaowang/fairroot:v18.8.0
+      image:silkeh/clang:15-buster
     steps: 
+      - run: apt-get update -y && apt-get install -y git
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
