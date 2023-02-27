@@ -4,6 +4,7 @@ on:
     branches:
       - master
   workflow_dispatch:
+  pull_request:
 
 jobs:
   clang_tidy_check:
