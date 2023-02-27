@@ -26,6 +26,7 @@ jobs:
       - name: Analyze
         run: |
           git config --global --add safe.directory $GITHUB_WORKSPACE
+          git branch
           git diff -U0 master | clang-tidy-diff-15.py -p1 -path build -export-fixes clang-tidy-result/fixes.yml
         shell: bash
       - name: Run clang-tidy-pr-comments action
