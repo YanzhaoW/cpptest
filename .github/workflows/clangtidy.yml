@@ -12,9 +12,9 @@ jobs:
     #   image: silkeh/clang:15-buster
     #   # image: yanzhaowang/fairroot:v18.8.0
     steps: 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
         with:
-          fetch-depth: 0
+          fetch-depth: 2
       - name: Install clang-tidy
         run: |
           sudo apt-get update
