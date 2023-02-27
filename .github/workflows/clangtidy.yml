@@ -14,6 +14,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+      - run: git status
       - name: Prepare compile_commands.json
         run: |
           cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
@@ -22,8 +23,6 @@ jobs:
           mkdir clang-tidy-result
       - name: Analyze
         run: |
-          ls -a
-          git diff master
           git diff -U0 master | clang-tidy-diff-15.py -p1 -path build -export-fixes clang-tidy-result/fixes.yml
         shell: bash
       - name: Run clang-tidy-pr-comments action
