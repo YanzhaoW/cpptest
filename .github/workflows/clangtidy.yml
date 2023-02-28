@@ -5,8 +5,6 @@ on:
   pull_request:
   workflow_dispatch:
 
-permissions: write-all
-
 jobs:
   clang-tidy:
     runs-on: ubuntu-latest
@@ -32,17 +30,17 @@ jobs:
         git diff -U0 HEAD^ | clang-tidy-diff-15.py -p1 -path build -export-fixes clang-tidy-result/fixes.yml |\
         sed 's/\(^.*\):\([0-9]*\):\([0-9]*\): warning:/::warning file=\1,line=\2,col=\3::/'
         echo "WARN_NUM=$(grep -w "^ *Message:" clang-tidy-result/fixes.yml | wc -l | xargs)" >> $GITHUB_ENV
-        if [ ${{ env.WARN_NUM }} == '0' ]; then
-          echo "::notice::All clean, LGTM"
-        fi
-      shell: bash
 
-    - name: clang-tidy result
-      if: ${{ env.WARN_NUM }} != '0'
+    - name: clang-tidy results
       run: |
-          cat clang-tidy-result/fixes.yml
-          echo "::notice::Clang-tidy generates $WARN_NUM warnings!"
-          exit 1
+          if [ "${{ env.WARN_NUM }}" -eq "0" ]; then
+            echo "::notice::All clean, LGTM!"
+          else
+            cat clang-tidy-result/fixes.yml
+            echo "::notice::Clang-tidy generates ${{ env.WARN_NUM }} warnings! Please fix them before being merged."
+            exit 1
+          fi
+      shell: bash
 
 
     # - name: publish review

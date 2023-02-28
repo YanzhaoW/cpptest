@@ -7,11 +7,12 @@
 
 auto main() -> int
 {
-    auto vec = std::vector<int>(10);
-    for (int i = 0; i < vec.size(); i++)
+    const size_t vec_size = 10;
+    auto vec = std::vector<int>(vec_size);
+    for (const int iter : vec)
     {
-        std::cout << vec[i] << std::endl;
+        std::cout << iter << std::endl;
     }
-    int i;
+    const int value = 0;
     return 0;
 }
