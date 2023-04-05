@@ -1,0 +1,20 @@
+name: merge action
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  clang_tidy_check:
+    runs-on: ubuntu-latest
+    container: 
+      image: silkeh/clang:15-buster
+    steps: 
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: check
+        run: |
+          git config --global --add safe.directory $GITHUB_WORKSPACE
+          echo $( git rev-parse --short HEAD^)
+          echo $( git rev-parse --short HEAD)

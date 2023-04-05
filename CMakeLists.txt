@@ -1,19 +1,24 @@
 cmake_minimum_required(VERSION 3.13.4)
 
 PROJECT(trail VERSION 1.0)
-add_compile_options(-fsanitize=address -g)
-add_link_options(-fsanitize=address -g)
+# add_compile_options(-fsanitize=address -g)
+# add_link_options(-fsanitize=address -g)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS -pthread)
-message(STATUS "${CMAKE_CXX_CLANG_TIDY}")
+# message(STATUS "${CMAKE_CXX_CLANG_TIDY}")
 file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.cxx)
 file(GLOB INCLUDE_FILES ${PROJECT_SOURCE_DIR}/src/*.hpp)
+
+find_package(ROOT REQUIRED)
+message(STATUS "ROOT libs: ${ROOT_LIBRARIES}")
+
+include_directories(${ROOT_INCLUDE_DIRS})
 
 add_library(mylib ${SRC_FILES})
 target_include_directories(mylib PUBLIC ${PROJECT_SOURCE_DIR}/src)
 
 add_executable(${PROJECT_NAME} main.cxx)
-target_link_libraries(${PROJECT_NAME} mylib)
+target_link_libraries(${PROJECT_NAME} mylib ${ROOT_LIBRARIES})
 # target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/src)
 
 
