@@ -23,6 +23,8 @@ jobs:
         with:
           path: build
           key: ${{ runner.os }}-trail-2
+      - name: check
+        run: echo ${{ github.event_name }}
       # - name: build and run
       #   run: |
       #     cd ${GITHUB_WORKSPACE}
