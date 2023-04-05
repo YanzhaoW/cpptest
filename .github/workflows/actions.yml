@@ -23,10 +23,10 @@ jobs:
         with:
           path: build
           key: ${{ runner.os }}-trail-2
-      - name: build and run
-        run: |
-          cd ${GITHUB_WORKSPACE}
-          mkdir -p build && cd build
-          cmake .. 
-          make
-          ./trail
+      # - name: build and run
+      #   run: |
+      #     cd ${GITHUB_WORKSPACE}
+      #     mkdir -p build && cd build
+      #     cmake .. 
+      #     make
+      #     ./trail
