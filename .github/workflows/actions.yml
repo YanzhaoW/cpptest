@@ -28,7 +28,9 @@ jobs:
         with:
           path: build
           key: ${{ runner.os }}-trail-2
+
       - name: check
+        if: ${{ github.event_name == 'push' }}
         run: |
           git config --global --add safe.directory $GITHUB_WORKSPACE
           echo ${{ github.event_name }}
