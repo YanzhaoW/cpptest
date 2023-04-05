@@ -24,3 +24,5 @@ jobs:
           echo $( git rev-parse --short HEAD^)
           echo $( git rev-parse --short HEAD)
           echo ${{ github.event_name }}
+          echo "cacheSHA=$([[ ${{github.event_name}} = "push" ]] && git rev-parse --short HEAD || git rev-parse --short HEAD^)"
+        shell: bash
