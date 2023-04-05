@@ -8,7 +8,12 @@ jobs:
   clang_tidy_check:
     runs-on: ubuntu-latest
     container: 
-      image: silkeh/clang:15-buster
+      image: yanzhaowang/cvmfs_clang:v15
+      volumes:
+        - /tmp:/cvmfs
+      env:
+        CVMDIR: /cvmfs/fairsoft.gsi.de
+      options: --user root --privileged  --ulimit nofile=10000:10000 --cap-add SYS_ADMIN --device /dev/fuse
     steps: 
       - uses: actions/checkout@v3
         with:
@@ -24,7 +29,11 @@ jobs:
           path: build
           key: ${{ runner.os }}-trail-2
       - name: check
-        run: echo ${{ github.event_name }}
+        run: |
+          git config --global --add safe.directory $GITHUB_WORKSPACE
+          echo ${{ github.event_name }}
+          echo "cacheSHA=$([[ ${{github.event_name}} = "push" ]] && git rev-parse --short HEAD || git rev-parse --short HEAD^)"
+        shell: bash
       # - name: build and run
       #   run: |
       #     cd ${GITHUB_WORKSPACE}
