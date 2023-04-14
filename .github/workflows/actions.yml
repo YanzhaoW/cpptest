@@ -24,10 +24,10 @@ jobs:
             url: https://github.com/R3BRootGroup/asyeos.git
             cache: r3broot
           - repos: others
-            url: 
-            - https://github.com/R3BRootGroup/asyeos.git
-            - https://github.com/R3BRootGroup/frs.git
-            - https://github.com/R3BRootGroup/sofia.git
+            url: |
+              https://github.com/R3BRootGroup/asyeos.git
+              https://github.com/R3BRootGroup/frs.git
+              https://github.com/R3BRootGroup/sofia.git
             cache: r3broot
 
     container: 
@@ -58,6 +58,7 @@ jobs:
           git config --global --add safe.directory $GITHUB_WORKSPACE
           echo ${{ matrix.repos }}
           echo ${{ matrix.url }}
+          readarray urls < <(yq 'jobs.others.url[]' sample.yaml)
         shell: bash
       # - name: build and run
       #   run: |
