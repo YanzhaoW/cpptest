@@ -30,13 +30,13 @@ jobs:
               https://github.com/R3BRootGroup/sofia.git
             cache: r3broot
 
-    container: 
-      image: yanzhaowang/cvmfs_clang:v15
-      volumes:
-        - /tmp:/cvmfs
-      env:
-        CVMDIR: /cvmfs/fairsoft.gsi.de
-      options: --user root --privileged  --ulimit nofile=10000:10000 --cap-add SYS_ADMIN --device /dev/fuse
+    # container: 
+    #   image: yanzhaowang/cvmfs_clang:v15
+    #   volumes:
+    #     - /tmp:/cvmfs
+    #   env:
+    #     CVMDIR: /cvmfs/fairsoft.gsi.de
+    #   options: --user root --privileged  --ulimit nofile=10000:10000 --cap-add SYS_ADMIN --device /dev/fuse
     steps: 
       - uses: actions/checkout@v3
         with:
