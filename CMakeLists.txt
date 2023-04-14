@@ -26,12 +26,14 @@ execute_process(COMMAND sh "${PROJECT_SOURCE_DIR}/test.sh")
 
 include(ctest)
 # testing:
-include(FetchContent)
-FetchContent_Declare(
-  googletest
-  GIT_REPOSITORY https://github.com/google/googletest.git
-  GIT_TAG release-1.12.1)
-FetchContent_MakeAvailable(googletest)
+# include(FetchContent)
+# FetchContent_Declare(
+#   googletest
+#   GIT_REPOSITORY https://github.com/google/googletest.git
+#   GIT_TAG release-1.12.1)
+# FetchContent_MakeAvailable(googletest)
+find_package(GTest)
+message(STATUS "Gtest version ${GOOGLETEST_VERSION}")
 
 enable_testing()
 add_executable(mytest mytest.cxx)
@@ -41,9 +43,9 @@ include(GoogleTest)
 gtest_discover_tests(mytest)
 
 message(STATUS "testing")
-FetchContent_GetProperties(googletest)
-if(NOT googletest_POPULATED)
-  message(STATUS "google test not populated.")
-else()
-  message(STATUS "google test populated.")
-endif()
+# FetchContent_GetProperties(googletest)
+# if(NOT googletest_POPULATED)
+#   message(STATUS "google test not populated.")
+# else()
+#   message(STATUS "google test populated.")
+# endif()

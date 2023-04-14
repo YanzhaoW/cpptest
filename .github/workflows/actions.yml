@@ -7,6 +7,25 @@ on:
 jobs:
   clang_tidy_check:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        repos: [ r3broot, sofia, frs, asyeos, glad-tpc ]
+        include:
+          - repos: r3broot
+            cache: r3broot
+          - repos: sofia
+            url: https://github.com/R3BRootGroup/sofia.git
+            cache: sofia
+          - repos: frs
+            url: https://github.com/R3BRootGroup/frs.git
+            cache: r3broot
+          - repos: asyeos
+            url: https://github.com/R3BRootGroup/asyeos.git
+            cache: r3broot
+          - repos: glad-tpc
+            url: https://github.com/R3BRootGroup/glad-tpc.git
+            cache: r3broot
     container: 
       image: yanzhaowang/cvmfs_clang:v15
       volumes:
@@ -30,11 +49,11 @@ jobs:
           key: ${{ runner.os }}-trail-2
 
       - name: check
-        if: ${{ github.event_name == 'push' }}
+        # if: ${{ github.event_name == 'push' }}
         run: |
           git config --global --add safe.directory $GITHUB_WORKSPACE
-          echo ${{ github.event_name }}
-          echo "cacheSHA=$([[ ${{github.event_name}} = "push" ]] && git rev-parse --short HEAD || git rev-parse --short HEAD^)"
+          echo ${{ matrix.repos }}
+          echo ${{ matrix.url }}
         shell: bash
       # - name: build and run
       #   run: |
