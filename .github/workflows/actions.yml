@@ -60,10 +60,10 @@ jobs:
           echo "${{ matrix.url }}"
           # echo "${{ matrix.url }}" | sed 's/\\n/ /g'
           # echo $(sed 's/' "${{ matrix.url }}")
-          for url in $(echo "${{ matrix.url }}")
-          do
-            echo "this is url $url"
-          done
+          # for url in $(echo "${{ matrix.url }}")
+          # do
+          #   echo "this is url $url"
+          # done
         shell: bash
       # - name: build and run
       #   run: |
