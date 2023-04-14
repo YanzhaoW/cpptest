@@ -57,11 +57,12 @@ jobs:
         run: |
           git config --global --add safe.directory $GITHUB_WORKSPACE
           echo ${{ matrix.repos }}
-          echo "${{ matrix.url }}"
-          for url in "${{ matrix.url }}"
-          do
-            echo "this is url $url"
-          done
+          echo "${{ matrix.url }}" | sed 's/\\n/ /g'
+          # echo $(sed 's/' "${{ matrix.url }}")
+          # for url in "${{ matrix.url }}"
+          # do
+          #   echo "this is url $url"
+          # done
         shell: bash
       # - name: build and run
       #   run: |
