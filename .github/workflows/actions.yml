@@ -10,19 +10,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        repos: [ r3broot, sofia, frs, asyeos, others ]
+        repos: [ others ]
         include:
-          - repos: r3broot
-            cache: r3broot
-          - repos: sofia
-            url: https://github.com/R3BRootGroup/sofia.git
-            cache: sofia
-          - repos: frs
-            url: https://github.com/R3BRootGroup/frs.git
-            cache: r3broot
-          - repos: asyeos
-            url: https://github.com/R3BRootGroup/asyeos.git
-            cache: r3broot
           - repos: others
             url: |
               https://github.com/R3BRootGroup/asyeos.git
