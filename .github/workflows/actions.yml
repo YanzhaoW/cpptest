@@ -58,7 +58,6 @@ jobs:
           git config --global --add safe.directory $GITHUB_WORKSPACE
           echo ${{ matrix.repos }}
           echo ${{ matrix.url }}
-          readarray urls < <(yq 'jobs.others.url[]' sample.yaml)
         shell: bash
       # - name: build and run
       #   run: |
