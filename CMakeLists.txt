@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.13.4)
 project(trail VERSION 1.0)
 # add_compile_options(-fsanitize=address -g) add_link_options(-fsanitize=address
 # -g)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON) # used by clang-tidy
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS -pthread)
 # message(STATUS "${CMAKE_CXX_CLANG_TIDY}")
@@ -33,11 +34,16 @@ include(ctest)
 #   GIT_TAG release-1.12.1)
 # FetchContent_MakeAvailable(googletest)
 find_package(GTest)
-message(STATUS "Gtest version ${GOOGLETEST_VERSION}")
 
 enable_testing()
 add_executable(mytest mytest.cxx)
-target_link_libraries(mytest mylib GTest::gtest_main)
+target_link_libraries(mytest mylib GTest::gtest_main GTest::gmock_main)
+
+if(NOT TARGET GTest::gmock_main)
+    message("no gtest_main")
+else()
+    message("have gtest_main")
+endif()
 
 include(GoogleTest)
 gtest_discover_tests(mytest)

@@ -1,5 +1,6 @@
 #include "class1.hpp"
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
+#include <gmock/gmock.h>
 #include <iostream>
 
 TEST(ProductTest, test1)

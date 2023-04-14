@@ -10,10 +10,24 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        repos: [ others ]
+        repos: [ r3broot, sofia, frs, asyeos, glad-tpc, others ]
         include:
+          - repos: r3broot
+            cache: r3broot
+          - repos: sofia
+            url: https://github.com/R3BRootGroup/sofia.git
+            cache: sofia
+          - repos: frs
+            url: https://github.com/R3BRootGroup/frs.git
+            cache: r3broot
+          - repos: asyeos
+            url: https://github.com/R3BRootGroup/asyeos.git
+            cache: r3broot
+          - repos: glad-tpc
+            url: https://github.com/R3BRootGroup/glad-tpc.git
+            cache: r3broot
           - repos: others
-            url: |
+            url: >-
               https://github.com/R3BRootGroup/asyeos.git
               https://github.com/R3BRootGroup/frs.git
               https://github.com/R3BRootGroup/sofia.git
@@ -45,16 +59,13 @@ jobs:
         # if: ${{ github.event_name == 'push' }}
         run: |
           git config --global --add safe.directory $GITHUB_WORKSPACE
+          # ls /home/runner/work/_temp/*.sh | xargs cat
           echo ${{ matrix.repos }}
-          echo "\
-          ${{ matrix.url }}\
-          "
-          # echo "${{ matrix.url }}" | sed 's/\\n/ /g'
-          # echo $(sed 's/' "${{ matrix.url }}")
-          # for url in $(echo "${{ matrix.url }}")
-          # do
-          #   echo "this is url $url"
-          # done
+          echo "${{ matrix.url }}"
+          for url in ${{ matrix.url }};
+          do
+            echo "this is url $url"
+          done
         shell: bash
       # - name: build and run
       #   run: |
