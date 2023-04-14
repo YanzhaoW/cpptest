@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        repos: [ r3broot, sofia, frs, asyeos, glad-tpc ]
+        repos: [ r3broot, sofia, frs, asyeos, others ]
         include:
           - repos: r3broot
             cache: r3broot
@@ -23,9 +23,13 @@ jobs:
           - repos: asyeos
             url: https://github.com/R3BRootGroup/asyeos.git
             cache: r3broot
-          - repos: glad-tpc
-            url: https://github.com/R3BRootGroup/glad-tpc.git
+          - repos: others
+            url: 
+            - https://github.com/R3BRootGroup/asyeos.git
+            - https://github.com/R3BRootGroup/frs.git
+            - https://github.com/R3BRootGroup/sofia.git
             cache: r3broot
+
     container: 
       image: yanzhaowang/cvmfs_clang:v15
       volumes:
