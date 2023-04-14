@@ -57,7 +57,7 @@ jobs:
         run: |
           git config --global --add safe.directory $GITHUB_WORKSPACE
           echo ${{ matrix.repos }}
-          echo ${{ matrix.url }}
+          echo "${{ matrix.url }}"
         shell: bash
       # - name: build and run
       #   run: |
