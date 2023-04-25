@@ -1,0 +1,30 @@
+cmake_minimum_required(VERSION 3.25)
+
+include(${CTEST_SCRIPT_DIRECTORY}/CTestConfig.cmake)
+
+Message("${CTEST_PROJECT_NAME}")
+
+if(NOT DEFINED TEST)
+    Message("TEST is not defined")
+else()
+    Message("TEST is defined")
+endif()
+Message("${TEST}")
+
+set(CTEST_USE_LAUNCHERS YES)
+site_name(CTEST_SITE)
+set(CTEST_BUILD_NAME "another simple test")
+set(CTEST_SOURCE_DIRECTORY "${CTEST_SCRIPT_DIRECTORY}")
+set(CTEST_BINARY_DIRECTORY "${CTEST_SCRIPT_DIRECTORY}/build")
+set(CTEST_CMAKE_GENERATOR "Unix Makefiles")
+# set(CTEST_CONFIGURATION_TYPE RelWithDebInfo)
+
+ctest_start(Experimental)
+ctest_configure()
+ctest_build()
+ctest_submit(PARTS Build)
+ctest_test()
+ctest_submit(PARTS Test)
+ctest_submit(PARTS Submit)
+ctest_submit(PARTS Done)
+# ctest_submit()

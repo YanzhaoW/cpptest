@@ -1,12 +1,13 @@
 #include "class1.hpp"
 #include "gtest/gtest.h"
+#include <gmock/gmock.h>
 #include <iostream>
 
 TEST(ProductTest, test1)
 {
     auto pro = Product{ 1, 2.9 };
     auto res = pro.Get();
-    ASSERT_EQ(res, 2.2);
+    ASSERT_EQ(res, 2.9);
 }
 
 TEST(ProductTest, test2)

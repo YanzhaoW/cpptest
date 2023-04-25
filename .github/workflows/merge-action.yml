@@ -7,6 +7,13 @@ on:
 jobs:
   clang_tidy_check:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        repos: [ r3broot, glad ]
+        include:
+          - repos: r3broot
+            url: true
+          - repos: glad
     container: 
       image: yanzhaowang/cvmfs_clang:v15
       volumes:
@@ -19,10 +26,12 @@ jobs:
         with:
           fetch-depth: 0
       - name: check
+        if: matrix.url != 'true'
         run: |
-          git config --global --add safe.directory $GITHUB_WORKSPACE
-          echo $( git rev-parse --short HEAD^)
-          echo $( git rev-parse --short HEAD)
-          echo ${{ github.event_name }}
-          echo "cacheSHA=$([[ ${{github.event_name}} = "push" ]] && git rev-parse --short HEAD || git rev-parse --short HEAD^)"
+          echo "repos is ${{ matrix.repos }}"
+          # git config --global --add safe.directory $GITHUB_WORKSPACE
+          # echo $( git rev-parse --short HEAD^)
+          # echo $( git rev-parse --short HEAD)
+          # echo ${{ github.event_name }}
+          # echo "cacheSHA=$([[ ${{github.event_name}} = "push" ]] && git rev-parse --short HEAD || git rev-parse --short HEAD^)"
         shell: bash
