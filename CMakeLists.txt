@@ -9,9 +9,10 @@ set(CMAKE_CXX_FLAGS -pthread)
 file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.cxx)
 file(GLOB INCLUDE_FILES ${PROJECT_SOURCE_DIR}/src/*.hpp)
 
-find_package(ROOT REQUIRED)
+set(CTEST_USE_LAUNCHERS YES)
+# find_package(ROOT REQUIRED)
 
-include_directories(${ROOT_INCLUDE_DIRS})
+# include_directories(${ROOT_INCLUDE_DIRS})
 
 add_library(mylib ${SRC_FILES})
 target_include_directories(mylib PUBLIC ${PROJECT_SOURCE_DIR}/src)
@@ -20,6 +21,10 @@ add_executable(${PROJECT_NAME} main.cxx)
 target_link_libraries(${PROJECT_NAME} mylib ${ROOT_LIBRARIES})
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/src)
 
+execute_process(COMMAND sh "${PROJECT_SOURCE_DIR}/test.sh")
+
+
+include(ctest)
 # testing:
 include(FetchContent)
 FetchContent_Declare(
