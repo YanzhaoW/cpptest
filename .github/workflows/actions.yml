@@ -26,6 +26,7 @@ jobs:
           - repos: glad-tpc
             url: https://github.com/R3BRootGroup/glad-tpc.git
             cache: r3broot
+            save: false
           - repos: others
             url: >-
               https://github.com/R3BRootGroup/asyeos.git
@@ -56,8 +57,10 @@ jobs:
           key: ${{ runner.os }}-trail-2
 
       - name: check
+        if: matrix.save != 'false'
         # if: ${{ github.event_name == 'push' }}
         run: |
+          echo "repos is ${{ matrix.repos }}"
           git config --global --add safe.directory $GITHUB_WORKSPACE
           # ls /home/runner/work/_temp/*.sh | xargs cat
           echo ${{ matrix.repos }}
